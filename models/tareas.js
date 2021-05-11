@@ -19,11 +19,9 @@ class Tareas {
     }
 
     cargarTareasFromArray ( tareas = []) {
-        if (tareas.length > 0) {
-            tareas.forEach(tarea => {
-                this._listado[tarea.id] = tarea; 
-            });
-        }
+        tareas.forEach(tarea => {
+            this._listado[tarea.id] = tarea; 
+        });
     }
 
     crearTarea(desc = '') {
