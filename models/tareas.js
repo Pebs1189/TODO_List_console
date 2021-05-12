@@ -34,37 +34,89 @@ class Tareas {
     }
 
     listadoCompleto() {
-        const listaDeTareas = [
-            {
-                type: 'list',
-                name: 'lista de tareas',
-                message: 'Lista de tarea(s):',
-                choices: []
-            }
-        ]
+        let listaCompleta = '\n';
 
-        const listado = this.listadoArr;
+        this.listadoArr.forEach((tarea, i) => {
+            const {desc, completadoEn} = tarea;
+            let estado = '';
+            let inc = '';
 
-        for (let i = 1; i <= listado.length; i++) {
-            if (listado[i-1].completadoEn) {
-                listaDeTareas[0].choices.push(
-                    {
-                        value:`${i}`,
-                        name: `${colors.green(i)} ${listado[i-1].desc} :: ${'Completado'.green}`
-                    }
-                )
+            if (completadoEn) {
+                estado = `${'Completado'.green}`;
+                inc += `${colors.green(++i)}`;
             } else {
-                listaDeTareas[0].choices.push(
-                    {
-                        value:`${i}`,
-                        name: `${colors.red(i)} ${listado[i-1].desc} :: ${'Pendiente'.red}`
-                    }
-                )
+                estado = `${'Pendiente'.red}`;
+                inc += `${colors.red(++i)}`;
             }
-        }
 
-        inquirer.prompt(listaDeTareas);
+            listaCompleta += `${inc} ${desc} :: ${estado} \n`;
+        });
+
+        console.log(listaCompleta);
     }
+
+    listarPendientesCompletadas ( completadas = true ) {
+        let listaPendiente = '\n';
+        let inc = '';
+        let i = 1;
+
+        this.listadoArr.forEach(tarea => {
+            const {desc, completadoEn} = tarea;
+            let estado = '';
+            
+            if (completadoEn && completadas) {
+                estado = `${'Completado'.green}`;
+                inc = `${colors.green(i++)}${'.'.green}`;
+                listaPendiente += `${inc} ${desc} :: ${estado} \n`;
+            } else if (!completadoEn && !completadas) {
+                estado = `${'Pendiente'.red}`;
+                inc = `${colors.red(i++)}${'.'.red}`;
+                listaPendiente += `${inc} ${desc} :: ${estado} \n`;
+            }            
+        });
+
+        console.log(listaPendiente);
+    }
+
+    borrarTarea(id = '') {
+        if (this._listado[id]) {
+            delete this._listado[id];
+        }
+    }
+
+    // listadoCompletoConPrompt() {
+    //     const listaDeTareas = [
+    //         {
+    //             type: 'list',
+    //             name: 'lista de tareas',
+    //             message: 'Lista de tarea(s):',
+    //             choices
+    //         }
+    //     ]
+
+    //     const listado = this.listadoArr;
+
+    //     for (let i = 1; i <= listado.length; i++) {
+    //         if (listado[i-1].completadoEn) {
+    //             listaDeTareas[0].choices.push(
+    //                 {
+    //                     value:`${i}`,
+    //                     name: `${colors.green(i)} ${listado[i-1].desc} :: ${'Completado'.green}`
+    //                 }
+    //             )
+    //         } else {
+    //             listaDeTareas[0].choices.push(
+    //                 {
+    //                     value:`${i}`,
+    //                     name: `${colors.red(i)} ${listado[i-1].desc} :: ${'Pendiente'.red}`
+    //                 }
+    //             )
+    //         }
+    //     }
+
+    //     const id = inquirer.prompt(listaDeTareas);
+    //     return id;
+    // }
 }
 
 module.exports = Tareas;
