@@ -83,40 +83,6 @@ class Tareas {
             delete this._listado[id];
         }
     }
-
-    // listadoCompletoConPrompt() {
-    //     const listaDeTareas = [
-    //         {
-    //             type: 'list',
-    //             name: 'lista de tareas',
-    //             message: 'Lista de tarea(s):',
-    //             choices
-    //         }
-    //     ]
-
-    //     const listado = this.listadoArr;
-
-    //     for (let i = 1; i <= listado.length; i++) {
-    //         if (listado[i-1].completadoEn) {
-    //             listaDeTareas[0].choices.push(
-    //                 {
-    //                     value:`${i}`,
-    //                     name: `${colors.green(i)} ${listado[i-1].desc} :: ${'Completado'.green}`
-    //                 }
-    //             )
-    //         } else {
-    //             listaDeTareas[0].choices.push(
-    //                 {
-    //                     value:`${i}`,
-    //                     name: `${colors.red(i)} ${listado[i-1].desc} :: ${'Pendiente'.red}`
-    //                 }
-    //             )
-    //         }
-    //     }
-
-    //     const id = inquirer.prompt(listaDeTareas);
-    //     return id;
-    // }
 }
 
 module.exports = Tareas;
