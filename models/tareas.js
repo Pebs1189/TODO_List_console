@@ -1,5 +1,4 @@
 const Tarea = require('./tarea');
-const inquirer = require('inquirer');
 
 const colors = require('colors');
 
